@@ -1,0 +1,58 @@
+#include<iostream>
+using namespace std;
+int e[5];
+int time[5];
+
+
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int energy,distance;
+        cin>>energy>>distance;
+        for(int i=0;i<5;i++)
+        {
+            int minutes,seconds;
+            cin>>minutes>>seconds>>e[i];
+            time[i]=minutes*60+seconds;
+        }
+        int dp[distance+1][energy+1];
+        for(int i=0;i<=distance;i++)
+        {
+            for(int j=0;j<=energy;j++)
+            {
+                if(i==0)
+                    dp[i][j]=0;
+                else
+                    dp[i][j]=100000;
+            }
+        }
+        for(int i=1;i<=distance;i++)
+        {
+            for(int j=1;j<=energy;j++)
+            {
+                int minimum=100000;
+                for(int k=0;k<5;k++)
+                {
+                    if(j-e[k]<0)
+                        continue;
+                    if(arr[j-1][j-e[k]!=100000)
+                    {
+                        int cur=arr[j-1][j-e[k]]+time[k];
+                        minimum=min(minimum,cur);
+                    }
+                }
+                arr[j][k]=minimum;
+            }
+        }
+        int answer=100000;
+        for(int j=0;j<=energy;j++)
+            answer=min(answer,dp[distance][j]);
+            cout<<answer/60<<answer%60<<endl;
+}
+
+return 0;
+}
+
