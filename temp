@@ -56,3 +56,135 @@ int main()
 return 0;
 }
 
+//tunnel
+#include<iostream>
+using namespace std;
+
+int arr[16][501],n,h,v,c1,c2,r1,r2,m1,m2,tc[16];
+
+int main()
+{
+
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n,h,v;
+        cin>>n>>h>>v;
+        for(int i=1;i<=v;i++)
+        {
+            for(int j=1;j<=h;j++)
+                cin>>arr[i][j];
+        }
+        cin>>c1>>r1>>m1;
+        cin>>c2>>r2>>m2;
+    }
+    for(int i=1;i<=v;i++)
+    {
+        int cost=100000;
+        for(int k1=0;k1<=h;k1++)
+        {
+            int temp1=0;
+            int k2=h-k1;
+            for(int j=1;j<=k1;j++)
+            {
+                temp1+=arr[i][j]*c1;
+            }
+            for(int j=h;j>k1;j--)
+            {
+                temp1+=arr[i][j]*c2;
+            }
+            if(k1>k2)
+            {
+                temp1+=(k1-k2-1)*r1;
+            }
+            else if(k2>k1)
+            {
+                temp1+=(k2-k1-1)*r2;
+            }
+            if(temp1<cost)
+                cost=temp1;
+        }
+        tc[i]=cost;
+    }
+    int answer=100000;
+    int moving_cost=m1*m1+m2*m2;
+    if(n==1)
+    {
+        for(int i=1;i<=v;i++)
+        {
+            if(answer>tc[i])
+                answer=tc[i];
+        }
+        cout<<answer<<endl;
+    }
+    else if(n==2)
+    {
+        for(int n1=1;n1<=(v-(n-1)*2);n1++)
+        {
+            for(int n2=n1+2;n2<=v;n2++)
+            {
+                int temp=tc[n1]+tc[n2]+(n2-n1)*moving_cost;
+                if(temp<answer)
+                    answer=temp;
+            }
+        }
+        cout<<answer<<endl;
+    }
+    else if(n==3)
+    {
+        for(int n1=1;n1<=(v-(n-1)*2);n1++)
+        {
+            for(int n2=n1+2;n2<=(v-(n-2)*2);n2++)
+            {
+                for(int n3=n2+2;n3<=v;n3++){
+                int temp=tc[n1]+tc[n2]+tc[n3]+(n3-n1)*moving_cost;
+                if(temp<answer)
+                    answer=temp;
+                }
+            }
+        }
+        cout<<answer<<endl;
+    }
+    else if(n==4)
+    {
+        for(int n1=1;n1<=(v-(n-1)*2);n1++)
+        {
+            for(int n2=n1+2;n2<=(v-(n-2)*2);n2++)
+            {
+                for(int n3=n2+2;n3<=(v-(n-3)*2);n3++){
+                        for(int n4=n3+2;n4<=v;n4++){
+                int temp=tc[n1]+tc[n2]+tc[n3]+tc[n4]+(n4-n1)*moving_cost;
+                if(temp<answer)
+                    answer=temp;
+                }
+                }
+            }
+        }
+        cout<<answer<<endl;
+    }
+    else
+    {
+        for(int n1=1;n1<=(v-(n-1)*2);n1++)
+        {
+            for(int n2=n1+2;n2<=(v-(n-2)*2);n2++)
+            {
+                for(int n3=n2+2;n3<=(v-(n-3)*2);n3++){
+                        for(int n4=n3+2;n4<=(v-(n-4)*2);n4++){
+                                for(int n5=n4+2;n5<=v;n5++){
+                int temp=tc[n1]+tc[n2]+tc[n3]+tc[n4]+tc[n5]+(n5-n1)*moving_cost;
+                if(temp<answer)
+                    answer=temp;
+                                }
+                }
+                }
+            }
+        }
+        cout<<answer<<endl;
+    }
+
+
+    return 0;
+
+}
+
